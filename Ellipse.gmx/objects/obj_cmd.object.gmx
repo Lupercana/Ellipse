@@ -29,6 +29,9 @@
 
 global.GAME_OVER_TIMER = 2; // seconds
 
+// Sounds
+global.BG_MUSIC_VOLUME = 0.25; // sounds
+
 // Graphics
 global.ENEMY_SCALING_BASE = 5.0 / sprite_get_width(sp_enemy_absorb);
 global.BG_BORDER = 8; // pixels
@@ -63,6 +66,8 @@ global.ENEMY_RAD_BASE = sprite_get_width(sp_enemy_absorb) / 2.0 * global.ENEMY_S
 // ******************************
 
 randomize();
+
+sound_volume(snd_bg_track, global.BG_MUSIC_VOLUME);
 
 global.shots_fired = false;
 global.game_over = false;
@@ -121,6 +126,30 @@ alarm[1] = room_speed;
 
 instance_create(room_width / 2, room_height / 2, obj_player);
 </string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>211</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_sound</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>6</kind>
+            <sound>snd_bg_track</sound>
+          </argument>
+          <argument>
+            <kind>3</kind>
+            <string>1</string>
           </argument>
         </arguments>
       </action>

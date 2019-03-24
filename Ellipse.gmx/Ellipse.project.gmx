@@ -4,7 +4,10 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_bg_track</sound>
+    <sound>sound\snd_impact</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\sp_border</sprite>
     <sprite>sprites\sp_player</sprite>

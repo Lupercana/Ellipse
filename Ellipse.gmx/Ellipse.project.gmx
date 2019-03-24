@@ -6,6 +6,7 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
+    <sprite>sprites\sp_border</sprite>
     <sprite>sprites\sp_player</sprite>
     <sprite>sprites\sp_bullet</sprite>
     <sprite>sprites\sp_enemy_absorb</sprite>
@@ -18,6 +19,9 @@
     <background>background\bg_basic</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\scale_difficulty.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_cmd</object>
     <object>objects\obj_player</object>

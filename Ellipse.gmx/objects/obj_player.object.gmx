@@ -53,7 +53,18 @@ can_fire = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (show_question("Play again?"))
+            <string>var display_text;
+
+if (global.shots_fired)
+{
+    display_text = "You survived for " + string(global.game_score) + " seconds          Play again?";
+}
+else
+{
+    display_text = "You survived *WITHOUT SHOOTING* for " + string(global.game_score) + " seconds          Play again?";
+}
+
+if (show_question(display_text))
 {
     game_restart();
 }
@@ -141,7 +152,8 @@ if (point_distance(x, y, other.x, other.y) &lt; (enemy_radius - player_radius))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!global.game_over)
+            <string>var not_outside = (y &gt;= (global.BG_BORDER + sp_h / 2.0 + spd));
+if (not_outside &amp;&amp; !global.game_over)
     y -= spd;
 </string>
           </argument>
@@ -165,7 +177,8 @@ if (point_distance(x, y, other.x, other.y) &lt; (enemy_radius - player_radius))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!global.game_over)
+            <string>var not_outside = (y &lt;= room_height - (global.BG_BORDER + sp_h / 2.0 + spd));
+if (not_outside &amp;&amp; !global.game_over)
     y += spd;
 </string>
           </argument>
@@ -189,7 +202,8 @@ if (point_distance(x, y, other.x, other.y) &lt; (enemy_radius - player_radius))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!global.game_over)
+            <string>var not_outside = (x &lt;= room_width - (global.BG_BORDER + sp_w / 2.0 + spd));
+if (not_outside &amp;&amp; !global.game_over)
     x += spd;
 </string>
           </argument>
@@ -213,7 +227,8 @@ if (point_distance(x, y, other.x, other.y) &lt; (enemy_radius - player_radius))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!global.game_over)
+            <string>var not_outside = (x &gt;= (global.BG_BORDER + sp_w / 2.0 + spd));
+if (not_outside &amp;&amp; !global.game_over)
     x -= spd;
 </string>
           </argument>
@@ -250,6 +265,7 @@ if (point_distance(x, y, other.x, other.y) &lt; (enemy_radius - player_radius))
     bullet_id.direction = mouse_dir;
     
     can_fire = false;
+    global.shots_fired = true;
     alarm[0] = room_speed * global.BULLET_RELOAD_TIME;
 }
 </string>

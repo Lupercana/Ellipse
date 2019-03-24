@@ -31,15 +31,24 @@ spd = global.ENEMY_SPD - global.ENEMY_ARROW_SPD_REDUCTION;
 radius = global.ENEMY_BIG_RAD;
 hp *= radius;
 
-x_move_axis = irandom(1);
-y_move_axis = 1 - x_move_axis;
-
 image_xscale *= radius;
 image_yscale *= radius;
 
 var player_x;
 var player_y;
 var move_dir;
+
+if (x == (global.BG_BORDER + global.ENEMY_RAD_BASE) || 
+    x == (room_width - (global.BG_BORDER + global.ENEMY_RAD_BASE)))
+{
+    x_move_axis = 1;
+    y_move_axis = 0;
+}
+else
+{
+    x_move_axis = 0;
+    y_move_axis = 1;
+}
 
 player = instance_find(obj_player, 0);
 player_x = player.x;

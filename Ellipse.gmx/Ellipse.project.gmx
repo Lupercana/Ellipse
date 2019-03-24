@@ -9,6 +9,10 @@
     <sprite>sprites\sp_player</sprite>
     <sprite>sprites\sp_bullet</sprite>
     <sprite>sprites\sp_enemy_absorb</sprite>
+    <sprite>sprites\sp_enemy_cosine</sprite>
+    <sprite>sprites\sp_enemy_bounce</sprite>
+    <sprite>sprites\sp_enemy_arrow</sprite>
+    <sprite>sprites\sp_enemy_straight</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_basic</background>
@@ -20,6 +24,10 @@
     <object>objects\obj_bullet</object>
     <object>objects\obj_enemy</object>
     <object>objects\obj_enemy_absorb</object>
+    <object>objects\obj_enemy_cosine</object>
+    <object>objects\obj_enemy_arrow</object>
+    <object>objects\obj_enemy_straight</object>
+    <object>objects\obj_enemy_bounce</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_main</room>

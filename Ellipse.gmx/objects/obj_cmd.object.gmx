@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>/* Game Paramters */
 
+global.GAME_OVER_TIMER = 1; // seconds
+
 // Graphics
 global.ENEMY_SCALING_BASE = 10.0 / sprite_get_width(sp_enemy_absorb);
 
@@ -39,15 +41,66 @@ global.BULLET_DRIFT = 10; // pixels
 global.BULLET_RELOAD_TIME = 0.1; // seconds
 
 // Spawner
-global.SPAWN_TIMER = 1; // seconds
+//global.SPAWN_TIMER = 0.1; // seconds
+global.SPAWN_TYPE_ABSORB_CHANCE = 0.5;
+global.SPAWN_TYPE_COSINE_CHANCE = 0.15;
+global.SPAWN_TYPE_ARROW_CHANCE = 0.05;
+global.SPAWN_TYPE_BOUNCE_CHANCE = 0.25;
+global.SPAWN_TYPE_STRAIGHT_CHANCE = 0.05;
 
 // Enemy
+global.ENEMY_BIG_RAD = 4;
 global.ENEMY_HEALTH = 1;
 global.ENEMY_SPD = 4;
+global.ENEMY_COSINE_INC = 2; // deg per step
+global.ENEMY_COSINE_AMP = 10; // pixels
+global.ENEMY_COSINE_ANGLE_OFFSET = 90; // degrees
+global.ENEMY_ARROW_SPD_REDUCTION = 1;
 
 // ******************************
 
+global.game_over = false;
+global.game_score = 1;
+
+spawn_types[0] = obj_enemy_absorb;
+spawn_types[1] = obj_enemy_cosine; 
+spawn_types[2] = obj_enemy_arrow;
+spawn_types[3] = obj_enemy_bounce; 
+spawn_types[4] = obj_enemy_straight;
+spawn_chances[0] = global.SPAWN_TYPE_ABSORB_CHANCE;
+spawn_chances[1] = global.SPAWN_TYPE_COSINE_CHANCE; 
+spawn_chances[2] = global.SPAWN_TYPE_ARROW_CHANCE;
+spawn_chances[3] = global.SPAWN_TYPE_BOUNCE_CHANCE; 
+spawn_chances[4] = global.SPAWN_TYPE_STRAIGHT_CHANCE;
+
 can_spawn = true;
+
+alarm[1] = room_speed;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>global.game_score += 1;
+
+alarm[1] = room_speed;
 </string>
           </argument>
         </arguments>
@@ -121,13 +174,54 @@ if (can_spawn)
         spawn_y = enemy_rad + (room_height - enemy_rad) * random(1);
     }
     
-    var enemy_id = instance_create(spawn_x, spawn_y, obj_enemy_absorb);
+    // Determine enemy type
+    var random_type = random(1);
+    var enemy_type;
+    var cp = 0;
+    
+    var i;
+    for (i = 0; i &lt; array_length_1d(spawn_chances); ++i)
+    {
+        cp += spawn_chances[i];
+        if (random_type &lt; cp)
+        {
+            enemy_type = spawn_types[i];
+            break;
+        }
+    }
+    
+    
+    var enemy_id = instance_create(spawn_x, spawn_y, enemy_type);
     enemy_id.image_xscale *= global.ENEMY_SCALING_BASE;
     enemy_id.image_yscale *= global.ENEMY_SCALING_BASE;
        
     can_spawn = false;
-    alarm[0] = room_speed * global.SPAWN_TIMER;
+    alarm[0] = room_speed * 1/ global.game_score;//global.SPAWN_TIMER;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_colour(c_white);
+draw_text(0, 0, string(global.game_score));
 </string>
           </argument>
         </arguments>
